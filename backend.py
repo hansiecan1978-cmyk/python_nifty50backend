@@ -27,7 +27,9 @@ def calculate_probability(data):
     if data['Close'][-1] > data['Close'].mean(): score += 30
     
     return min(100, score)
-
+@app.get("/")
+def home():
+    return {"message": "Welcome! Use /scan endpoint for stock data"}
 @app.get("/scan")
 def scan_stocks():
     results = []
@@ -52,4 +54,5 @@ def scan_stocks():
             continue
     
     # Sort by highest probability
+
     return sorted(results, key=lambda x: x['probability'], reverse=True)[:10]
